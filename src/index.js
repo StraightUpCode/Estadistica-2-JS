@@ -17,6 +17,7 @@ const desviacionEstandar = (datos, mediaPoblacional) => {
   console.log(sum);
   return Math.sqrt((1 / datos.length) * sum);
 };
+
 const desviacionEstandarMuestral = (
   tamañoMuestra,
   tamañoPoblacion,
@@ -27,6 +28,16 @@ const desviacionEstandarMuestral = (
     ? desv
     : desv *
         Math.sqrt((tamañoPoblacion - tamañoMuestra) / (tamañoPoblacion - 1));
+};
+const desviacionEstandarMuestralProporcional = (
+  sizeMuestra,
+  sizePoblacion,
+  Proporcion
+) => {
+  let desv = Math.sqrt((Proporcion * (1 - Proporcion)) / sizeMuestra);
+  return sizeMuestra / sizePoblacion <= 0.05
+    ? desv
+    : desv * Math.sqrt((sizePoblacion - sizeMuestra) / (sizePoblacion - 1));
 };
 const mediaPoblacional = arr => {
   let sum = sumArr(arr);
