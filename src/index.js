@@ -6,10 +6,9 @@ const sumArr = arr => arr.reduce((acc, current) => (acc += current), 0); //Recib
 const countElement = (arr, el) => arr.filter(cur => cur === el).length;
 const getUnique = arr =>
   arr.filter((cur, index, array) => array.indexOf(cur) === index);
-const calcularProbabilidades = arr => {
-  let uniqueElements = getUnique(arr);
+const calcularProbabilidades = (valoresUnicos, arr) => {
   return makeMapfromArr(
-    uniqueElements.map(current => [current, countElement(arr, current)])
+    valoresUnicos.map(current => [current, countElement(arr, current)])
   );
 };
 const combination = (arr, k) => {
@@ -32,12 +31,14 @@ const combination = (arr, k) => {
   }
   return comb;
 };
-const mediaMuestral = arrCombinaciones => {
+const mediaCombinaciones = arrCombinaciones => {
   return arrCombinaciones.map(combinacion => mediaPoblacional(combinacion));
 };
-const distMuestralMedia = arrMediaMuestral =>
+const distMuestralMedia = (arrMediaMuestral, frecuencia, numeroElemento) =>
   arrMediaMuestral.reduce(
-    (acc, current) => (acc += current * Probabilidad.getKey(current))
+    (acc, current) =>
+      (acc += (current * frecuencia.get(current)) / numeroElemento),
+    0
   );
 const desviacionEstandar = (datos, mediaPoblacional) => {
   let sum = datos.reduce(
@@ -81,7 +82,7 @@ const Data = [7, 7, 8, 8, 7, 8, 9];
 const tamañoPoblacion = Data.length;
 const tamañoMuestra = 2;
 let combinaciones = combination(Data, 2);
-let mediaM = mediaMuestral(combinaciones);
+let mediaComb = mediaCombinaciones(combinaciones);
 let mediaP = mediaPoblacional(Data);
 let desvStandar = desviacionEstandar(Data, mediaP);
 let desvStandarMuestral = desviacionEstandarMuestral(
@@ -89,10 +90,16 @@ let desvStandarMuestral = desviacionEstandarMuestral(
   tamañoPoblacion,
   desvStandar
 );
-let probabilidad = calcularProbabilidades(mediaM);
+let elementoUnicos = getUnique(mediaComb);
+let probabilidad = calcularProbabilidades(elementoUnicos, mediaComb);
+let distrMuestralMedia = distMuestralMedia(
+  elementoUnicos,
+  probabilidad,
+  mediaComb.length
+);
 console.log(`Media Poblacional = ${mediaP}
 Probabilidades = ${probabilidad}
-Media Muestral = ${mediaM}
-Distribucion Muestral de la Media ${}
+Media Muestral = ${mediaComb}
+Distribucion Muestral de la Media ${distrMuestralMedia}
 Desviacion Estandar = ${desvStandar}
 Desviacion Estandar Muestral = ${desvStandarMuestral}`);
