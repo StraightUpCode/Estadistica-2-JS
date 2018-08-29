@@ -45,7 +45,6 @@ const desviacionEstandar = (datos, mediaPoblacional) => {
     (acc, current) => (acc += Math.pow(current - mediaPoblacional, 2)),
     0
   );
-  console.log(sum);
   return Math.sqrt((1 / datos.length) * sum);
 };
 
@@ -72,7 +71,6 @@ const desviacionEstandarMuestralProporcional = (
 };
 const mediaPoblacional = arr => {
   let sum = sumArr(arr);
-  console.log(sum);
   let result = sum / arr.length;
   return result;
 };
@@ -97,8 +95,14 @@ let distrMuestralMedia = distMuestralMedia(
   probabilidad,
   mediaComb.length
 );
+const mapProbalidades = prob => {
+  let arr = [];
+  prob.forEach((val, key) => arr.push(`${key} = ${val} \n`));
+  return arr;
+};
 console.log(`Media Poblacional = ${mediaP}
-Probabilidades = ${probabilidad}
+Probabilidades :
+${mapProbalidades(probabilidad)}
 Media Muestral = ${mediaComb}
 Distribucion Muestral de la Media ${distrMuestralMedia}
 Desviacion Estandar = ${desvStandar}
