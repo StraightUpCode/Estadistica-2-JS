@@ -1,7 +1,7 @@
 {
   "name": "estadistica-2-js",
   "version": "1.0.0",
-  "description": "Funciones para facilitar la clase de Estadistica II ",
+  "description": "Funciones para facilitar la clase de Estadistica II \nHecho por: Roberto Sánchez",
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open",

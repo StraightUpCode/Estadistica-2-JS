@@ -98,6 +98,7 @@ const mapProbalidades = prob => {
   prob.forEach((val, key) => arr.push(`${key} = ${val} \n`));
   return arr;
 };
+combinaciones.forEach(v => console.log(`${v[0]} ${v[1]}`));
 console.log(`Media Poblacional = ${mediaP}
 Probabilidades :
 ${mapProbalidades(probabilidad)}
